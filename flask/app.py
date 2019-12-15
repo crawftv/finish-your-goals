@@ -3,7 +3,7 @@ from authlib.flask.client import OAuth
 from functools import wraps
 from decouple import config
 from six.moves.urllib.parse import urlencode
-from .models import DB, User
+from models import DB, User
 
 app = Flask(__name__)
 app.secret_key = config("SECRET_KEY")
@@ -68,10 +68,10 @@ def login():
 @app.route("/dashboard")
 @requires_auth
 def dashboard():
+    userinfo=session["profile"],
+    userinfo_pretty=json.dumps(session["jwt_payload"], indent=4),
     return render_template(
-        "dashboard.html",
-        userinfo=session["profile"],
-        userinfo_pretty=json.dumps(session["jwt_payload"], indent=4),
+        "dashboard.html",userinfo=userinfo, userinfo_pretty=userinfo_pretty,
     )
 
 
