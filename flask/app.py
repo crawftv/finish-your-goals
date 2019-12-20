@@ -37,6 +37,9 @@ def requires_auth(f):
 def home():
     return render_template("home.html")
 
+@app.route("/api/new_task", methods=["POST"])
+def create_new_task():
+    return jsonify(request.values)
 
 @app.route("/callback")
 def callback_handling():

@@ -1,50 +1,90 @@
-<form class="ui form">
+<form class="ui form" action="/api/new_task" method="POST">
     <h4 class="ui dividing header">New Task</h4>
     <div class="field">
-      <div class="two fields">
-        <div class="required field">
-            <label>Task Name</label>
-            <input type="text" name="task_name" placeholder="First Name">
+        <div class="two fields">
+            <div class="required field">
+                <label>Task Name</label>
+                <input type="text" name="task_name" placeholder="First Name">
+            </div>
+            <div class="field">
+                <label>Description</label>
+                <input type="text" name="task_description" placeholder="Last Name">
+            </div>
         </div>
         <div class="field">
-            <label>Description</label>
-            <input type="text" name="task_description" placeholder="Last Name">
-        </div>
-      </div>
-      <div class="field">
-        <div class="two fields">
-          <div class="required field">
-              <label>Start Time</label>
-              
-              <div class="ui selection dropdown">
-                <input type="hidden" name="task_start_hour">
-                <i class="dropdown icon"></i>
-                <div class="default text">hours</div>
-                    <div class="menu">
-                        {% for i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23] %}
-                        <div class="item" data-value={{ i }}>{{ i }}</div>
-                        {% endfor %}
+            <div class="two fields">
+                <div class="required field">
+                    <label>Start Time</label>
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="task_start_hour">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Hour</div>
+                        <div class="menu">
+                            {% for i in range(0,25) %}
+                            <div class="item" data-value={{ i }}>{{ i }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="task_start_minutes">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Minute</div>
+                        <div class="menu">
+                            {% for i in range(0,61) %}
+                            <div class="item" data-value={{ i }}>{{ i }}</div>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
-          </div>
-          <div class="required field">
-              <label>End Time</label>
-              <input type="text" name="task_end_time" placeholder="Last Name">
-          </div>
-          <div class="required field">
-            <label>interval</label>
-            <input type="text" name="task_interval" placeholder="Last Name">
-        </div>
-        </div>
-        <div class="inline field">
-            <label>Day of Week</label>
-            <div class="ui checkbox"></div>
-            {% for i in ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"] %}
-              <input type="checkbox" tabindex="0" class="hidden">
-              <label>{{ i }}</label>
-            {% endfor %}
+
+                <div class="required field">
+                    <label>End Time</label>
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="task_start_hour">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Hour</div>
+                        <div class="menu">
+                            {% for i in range(0,25) %}
+                            <div class="item" data-value={{ i }}>{{ i }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="task_start_minutes">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Minute</div>
+                        <div class="menu">
+                            {% for i in range(0,61) %}
+                            <div class="item" data-value={{ i }}>{{ i }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="required field">
+                    <label>interval</label>
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="task_start_minutes">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Minutes</div>
+                        <div class="menu">
+                            {% for i in range(0,61,5) %}
+                            <div class="item" data-value={{ i }}>{{ i }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="inline field">
+                <label>Day of Week</label>
+                <div class="ui checkbox"></div>
+                {% for i in ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"] %}
+                <input type="checkbox" tabindex="0" class="hidden">
+                <label>{{ i }}</label> {% endfor %}
+            </div>
+        </div>
     </div>
+    <button class="ui button" value="Submit" type="submit">Submit</button>
 </form>
-<script>$('.ui.selection.dropdown').dropdown();</script>
+<script>
+    $('.ui.selection.dropdown').dropdown();
+</script>
