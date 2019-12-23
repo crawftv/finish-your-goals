@@ -4,6 +4,7 @@ from functools import wraps
 from decouple import config
 from six.moves.urllib.parse import urlencode
 from models import DB, User
+from werkzeug.exceptions import BadRequestKeyError
 
 app = Flask(__name__)
 app.secret_key = config("SECRET_KEY")
@@ -39,7 +40,33 @@ def home():
 
 @app.route("/api/new_task", methods=["POST"])
 def create_new_task():
-    return jsonify(request.values)
+    #import pdb;pdb.set_trace()
+    new_task = {}
+    new_task["task_name"] = request.values["task_name"]
+    new_task["task_description"] = request.values["task_description"]
+    new_task["task_start_hour"] = request.values["task_start_hour"]
+    new_task["task_start_minutes"] = request.values["task_start_minutes"]
+    new_task["task_end_hour"] = request.values["task_end_hour"]
+    new_task["task_end_minutes"] = request.values["task_end_minutes"]
+    new_task["task_interval"] = request.values["task_interval"]
+    
+    for i in ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]:
+        try:
+            t = f'task_{i}'
+            if request.values[t] =="on":
+                new_task[t] = True
+        except BadRequestKeyError:
+            new_task[t] = False
+
+    # try:
+    #     if request.values["task_Monday"] == "on":
+    #     new_task["task_Monday"] = True
+    # except werkzeug.exceptions.BadRequestKeyError:
+    #     new_task["task_Monday"] = False
+    
+
+
+    return jsonify(new_task)
 
 @app.route("/callback")
 def callback_handling():
