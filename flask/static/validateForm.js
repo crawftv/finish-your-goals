@@ -17,23 +17,35 @@ function validateForm() {
     var task_Saturday = document.newTaskForm.task_Saturday
     var task_Sunday = document.newTaskForm.task_Sunday
 
-    if (name == "") {
+    var nameErr = taskScheduleError =false;
+
+    if (task_name == "") {
         printError("nameErr", "Please enter your name");
+        nameErr = true
     }
     if (task_start_hour > task_end_hour) {
         printError("taskScheduleError", "Please make sure your task starts before it ends.")
+        taskScheduleError = false
     } else if (task_start_hour == task_end_hour && task_start_minutes > task_end_minutes) {
         printError("taskScheduleError", "Plase make sure your task starts before it ends.")
+        taskScheduleError = false
     }
     if (task_start_hour == "") {
         printError("taskScheduleError", "Please add a start hour to your task")
+        taskScheduleError = false
     } else if (task_start_minutes == "") {
         printError("taskScheduleError", "Please add a start minute to your task")
+        taskScheduleError = false
     } else if (task_end_hour == "") {
         printError("taskScheduleError", "Please add a end hour to your task")
+        taskScheduleError = false
     } else if (task_end_hour == "") {
         printError("taskScheduleError", "Please add a end minute to your task")
+        taskScheduleError = false
     } else if (task_interval == "") {
         printError("taskScheduleError", "Please add a interval to your task")
+        taskScheduleError = false
     }
+    if((nameErr || taskScheduleError) == true) {
+        return false;}
 };
